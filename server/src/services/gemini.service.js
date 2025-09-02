@@ -4,11 +4,21 @@ export async function analyzeWithGemini(resumeText, jobTitle, industry) {
     const apiKey = process.env.GEMINI_API_KEY;
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
+    // --- THIS IS THE NEW, UPDATED PROMPT ---
     const prompt = `
-    You are an expert ATS (Applicant Tracking System) analyzer...
-    // (Your full prompt here)
+    You are an expert career coach providing direct, actionable feedback on a resume.
+    Analyze the following resume for a "${jobTitle}" position in the "${industry}" industry.
+
+    RESUME TEXT:
+    ${resumeText}
+
+    YOUR TASK:
+    For each major section of the resume (Summary, Experience, Skills, Projects, Education), provide a bulleted list of specific, constructive suggestions for improvement. Focus on using stronger action verbs, quantifying achievements with numbers, improving clarity, and ensuring alignment with the target role.
+
+    IMPORTANT: Do NOT simply list or summarize the contents of the resume. Only provide the improvement suggestions for each section.
+
     OUTPUT FORMAT:
-    Return ONLY a valid JSON object...
+    Return your feedback as a simple JSON object with the following keys: "summary_feedback", "experience_feedback", "skills_feedback", "projects_feedback", and "overall_recommendations". The value for each key should be a single string containing your bulleted list of suggestions for that section.
     `;
 
     const requestBody = {
@@ -35,11 +45,11 @@ export async function analyzeWithGemini(resumeText, jobTitle, industry) {
         }
 
         const data = await response.json();
-        // The actual JSON output is in the first candidate's content part
+        // The Gemini response is the direct JSON object we asked for
         return data.candidates[0].content.parts[0].text;
 
     } catch (error) {
         console.error("Error calling Gemini API:", error);
-        throw error; // Re-throw the error to be caught by the controller
+        throw error;
     }
 }
