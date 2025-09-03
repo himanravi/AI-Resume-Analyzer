@@ -36,15 +36,13 @@ Perform everyday math and a few power-user tricks directly in your browser—no 
 
 ---
 
----
 ## 📂 File Map
 
-```text
-Calculator/
-└── index.html        # Main markup
-└── style.css         # All styling & animations
-└── calculator.js     # Logic (display, eval, sqrt)
-└── README.md         # You are here
+Calculator/  
+└── index.html  # Main markup  
+└── style.css  # All styling & animations  
+└── calculator.js # Logic (display, eval, sqrt)  
+└── README.md  # You are here
 
 
 ---
