@@ -2,9 +2,9 @@
 
 export async function analyzeWithGemini(resumeText, jobTitle, industry) {
     const apiKey = process.env.GEMINI_API_KEY;
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // We use a modern, reliable model name: 'gemini-1.5-flash-latest'
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
 
-    // --- THIS IS THE NEW, UPDATED PROMPT ---
     const prompt = `
     You are an expert career coach providing direct, actionable feedback on a resume.
     Analyze the following resume for a "${jobTitle}" position in the "${industry}" industry.
@@ -45,7 +45,7 @@ export async function analyzeWithGemini(resumeText, jobTitle, industry) {
         }
 
         const data = await response.json();
-        // The Gemini response is the direct JSON object we asked for
+        // The API's JSON response is in this specific location in the data structure
         return data.candidates[0].content.parts[0].text;
 
     } catch (error) {

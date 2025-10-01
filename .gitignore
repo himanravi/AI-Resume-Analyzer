@@ -1,3 +1,25 @@
-# Ignore environment files
+# Dependencies for all projects
+/node_modules
+/server/node_modules
+/next-client/node_modules
+
+# Next.js build artifacts
+/next-client/.next/
+/next-client/out/
+
+# User Uploads
+/server/src/uploads/
+
+# Environment variables
 .env
-server/.env
+.env*
+!/.env.example
+*.env.local
+
+# Credentials & Secret Files
+/server/gcloud-credentials.json
+
+# Miscellaneous
+.DS_Store
+*.pem
+*.log
